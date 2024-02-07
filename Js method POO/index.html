@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type= text/javascript src="script.js"></script>
+    <title>POO JS</title>
+</head>
+<body>
+
+<h1>Exercices sur la programmation de type objet</h1>
+
+<h2>Method et Class </h2>
+
+<script>
+
+
+    //création d'une classe Employe avec les différentes propriétés : 
+    class  Employe { 
+        constructor (Nom, Prenom, DateEmbauche, PosteEntreprise, SalaireKBrutAnnuel, ServiceAssocie, Agence){
+    
+                this.Nom=  Nom;
+                this.Prenom= Prenom;
+                this.Date= new Date (DateEmbauche); 
+                this.Poste = PosteEntreprise;
+                this.Salaire = SalaireKBrutAnnuel;
+                this.Service = ServiceAssocie; 
+                this.Agence = Agence;
+                if (this.NbAnneesEntreprise() >= 1 ) {
+                    this.chequeVac = "droit aux chèques vacances";
+                } else {
+                    this.chequeVac = " n'a pas le droit aux chéques vacances";
+                }
+               console.log(this.chequeVac);
+        }
+    
+        //Dans la classe Employe, écrire une méthode permettant de savoir depuis combien d’années l'employé est dans l'entreprise:
+    
+        NbAnneesEntreprise() {
+            // pour la date actuelle
+            let dateActuelle = new Date();
+    
+            // je convertis la date d'embauche en objet Date et j'utilise new: 
+            let dateEmbauche = new Date(this.Date);
+            // console.log(dateEmbauche.getTime());
+            // je calcule la différence de jours pour avoir mon nb de jours employés dans le mois:
+            let joursEmployes= dateActuelle.getDate() - dateEmbauche.getDate();
+        
+            //je calcule la différence de mois pour avoir mon nb de mois employés dans l'année:
+            let moisEmployes = dateActuelle.getMonth() - dateEmbauche.getMonth();
+        
+            //je calcule la différence d'années pour avoir mon nb d'années passées dans l'entreprise:
+            let anneesEmployees = dateActuelle.getFullYear() - dateEmbauche.getFullYear();
+    
+
+           
+            
+           return anneesEmployees; 
+        }
+    
+        // j'écris dans la classe Employe , les ou la fonction me permet de déduire le montant de cette prime et de donner l'ordre de transfert à la banque le jour du versement . 
+    
+        MontantPrime() {
+     
+    
+    let dateActuelle = new Date();
+    let dateEmbauche = new Date(this.Date);
+    let anneesEmployees = dateActuelle.getFullYear() - dateEmbauche.getFullYear();
+    let primeAnuelle = this.Salaire*0.05;
+    let primeAncien = this.Salaire* (anneesEmployees*0.02);
+     let primes = new Primes(primeAnuelle,primeAncien,this.Salaire);
+    
+          
+            return primes;
+        } 
+    
+    }
+
+    class Primes{
+    constructor(primeAnuelle,primeAncien,salaire){
+this.primeAncien=primeAncien;
+this.primeAnuelle = primeAnuelle;
+this.totalPrime = primeAncien+ primeAnuelle;
+this.salaire=salaire;
+    }
+}
+
+class  Agence { 
+        constructor (nomAgence, adresseAgence, codePostalAgence, villeAgence, modeRestauration ){
+            this.nomAgence= nomAgence;
+            this.adresseAgence= adresseAgence;
+            this.codePostalAgence= codePostalAgence;
+            this.villeAgence= villeAgence;
+            this.modeRestauration = modeRestauration;
+        }
+    }
+
+    let agence1 = new Agence("afpa","11 rue des cerisiers", 54000, "Nancy", "restaurant d'entreprise");
+    let agence2 = new Agence("Pole Emploi","1 rue des bretelles", 57000, "Metz", "ticket restaurant");
+    let agence3 = new Agence("InterEmploi","55 rue de la formation", 57500, "Metz", "restaurant d'entreprise");
+    let agence4 = new Agence("Mission Locale","", 54600, "Pompey", "ticket restaurant");
+
+    
+
+
+//je sors de la classe
+
+     //je définit une nouvelle instance de ma classe Employe 
+    let Employe1 = new Employe ("Hugue", "Jean", new Date(1998,8,6), "directeur en second", 100000, "direction générale", agence4);
+    let Employe2 = new Employe ("Rabby", "Jacob", new Date(2012,10,20), "trésorier", 60000, "Ressources humaines", agence3);
+    let Employe3 = new Employe ("Kennnedy", "François", new Date(2022,12,8), "directeur", 150000, "direction générale", agence2);
+    let Employe4 = new Employe ("Kofe", "John", new Date(1989,2,17), "intérimaire", 12000, "intérim CDD", agence1);
+    let Employe5 = new Employe ("Winchester", "Dean", new Date(1999,9,19), "chef secteur", 35000, "direction locale", agence1);
+    
+//Je demande à la console de me donner le nb d'années dans l'entreprise de l'employé 3 :
+    console.log(Employe3.NbAnneesEntreprise()) ;
+
+
+
+    //je vais demander qu'il m'indique dans la console le salaire après avoir perçu les primes de tous les employés:
+    //donc je fais appel à ma fonction du MontantPrime
+    Employe1.MontantPrime();
+    Employe2.MontantPrime();
+    Employe3.MontantPrime();
+    Employe4.MontantPrime();
+    Employe5.MontantPrime();
+    
+    
+    //consigne: Afin de créer un reporting d’informations sur les employés de l’entreprise, établir une liste (array)d’employés en y ajoutant les 5 objets
+
+    let TableauEmployes =  [Employe1, Employe2, Employe3, Employe4, Employe5];
+
+    //Pour afficher le nombre d’employés de l’entreprise : 
+    let nb_employes = TableauEmployes.length;
+    console.log("L'entreprise a en son sein "+ nb_employes + " employés.");
+    
+    
+    //Pour afficher toutes les informations des employés par ordre alphabétique sur le nom et le prénom
+
+//je dis que dans mon tableau employé, il va le trier selon les noms/prénoms. Je choisis les paramètres a et b 
+//je lui dit qu'à chaque fois fois, il va comparer l'ordre alpha pour les noms/ prénoms
+// de a avec ceux de b 
+//maintenant que j'ai déterminé mon sort au dessus, je vais lui dire de le faire pour chaque élément du tableau
+// je vais utiliser le foreach pour parcourir tout mon tableau, j'utilise empl comme index pour parcourir le tabl
+// et j'affiche les résultats dans la console avec les logs
+
+
+function triNomPren(){
+    
+TableauEmployes.sort((a, b) => 
+   (a.Nom + a.Prenom).localeCompare(b.Nom + b.Prenom));   
+
+
+    TableauEmployes.forEach(function(empl){
+        console.log(empl.Nom + " "+ empl.Prenom);
+       
+    });
+    
+};
+    
+triNomPren();
+
+
+
+
+        
+
+
+
+//même principe, je fais une autre fonction mais pour insérer les services:
+function triServNomPren(){
+
+TableauEmployes.sort((a,b) => 
+
+(a.Service + a.Nom + a.Prenom).localeCompare(b.Service + b.Nom + b.Prenom));
+
+
+    TableauEmployes.forEach(function(parcoursTab) {
+        console.log(parcoursTab.Service + " " + parcoursTab.Nom + " " + parcoursTab.Prenom );
+
+    });
+};
+
+triServNomPren();
+
+
+//afficher le montant total du coût que représentent tous les salariés (masse salariale) calculé à partir des salaires et des primes.
+// Je mets une variable vide pour la masse salariale .
+// je mets une boucle qui va parcourir tout le tableau des employés via un index et qui va ajouter la masse salariale à chaque tour.
+let MasseSalar= 0;   
+for (let index = 0; index < TableauEmployes.length; index++) {
+
+    let dateActuelle = new Date();
+    let prime = TableauEmployes[index].MontantPrime();
+   MasseSalar +=  prime.totalPrime+prime.salaire  ;
+   if (dateActuelle.getDate() == 8 && dateActuelle.getMonth()==10) {
+                console.log("Le salaire de "+ TableauEmployes[index].Prenom +" "+ TableauEmployes[index].Nom + " après les deux primes sera de "+ prime.totalPrime + " euros.");
+            }
+           
+}
+    console.log(MasseSalar); 
+    
+    
+    
+            
+   
+
+// création d'une fonction pour indiquer quel mode de restauration dispose chaque employé selon son entreprise : 
+    function MRestauEmployes(){
+
+        for (let j = 0; j < TableauEmployes.length; j++) {
+            
+            console.log("L'employé "+ TableauEmployes[j].Nom + " " + TableauEmployes[j].Prenom + " se trouve dans l'agence "+ TableauEmployes[j].Agence.nomAgence + " et possède le mode de restauration: "+ TableauEmployes[j].Agence.modeRestauration ) ;
+            
+           
+        }
+        } ;
+
+        MRestauEmployes();
+
+   
+// création d'une fonction pour indiquer chaque employé a le droit ou non à des chèques vacances selon si il a un an d'ancienneté :
+        function ChequesVac(){
+            
+            for (let x = 0; x < TableauEmployes.length; x++) {
+                if (TableauEmployes[x].NbAnneesEntreprise() >= 1) {
+                    console.log("L'employé "+ TableauEmployes[x].Nom + " " + TableauEmployes[x].Prenom + " a le droit à des chèques vacances.");
+                } else {
+                    console.log("L'employé "+ TableauEmployes[x].Nom + " " + TableauEmployes[x].Prenom + " n'a pas le droit à des chèques vacances.");
+                }
+                
+            };
+        };
+
+        ChequesVac();
+
+
+
+
+    
+
+
+        </script>
+
+
+    
+</body>
+</html>

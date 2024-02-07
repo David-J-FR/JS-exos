@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/style.css" type="text/css">
+    <script type="text/javascript" src="audio.js"></script>
+    <title>Musique</title>
+</head>
+
+<body onload="init()">
+    <header>
+
+        <section id="controlemusique">
+
+            <nav id="lecture">
+                <button type="button" onclick="volumemoins()">Moins</button>
+		<input type="range" id="rangevolume" min="0" max="1" step="0.1" 
+		value="1" onchange="volumechange()">
+		<button type="button" onclick="volumeplus()">Plus</button> 
+<!-- le onclick c'est quand on clique dessus -->
+		<button type="button" onclick="pisteprecedente()">précédente</button> 
+        <button type="button" onclick="lecture()">Lecture/pause</button>
+		<button type="button" onclick="pistesuivante()">suivante</button>
+        <audio id="lecteur" ondurationchange="tempstotal()" ontimeupdate="followmusic()"  controls></audio>
+            </nav>  
+             <!-- l'ondurationchange c'est l'évent qui se produit lorsque la durée d'un 
+            média est modifiée -->
+
+        </section>
+
+        <section id="titreactuel">
+            <h3 id="nomArtiste">Nom artiste</h3>
+            <h4 id="nomChanson">Titre de la chanson</h4>
+            <img id="imageInfo"src="img/pochettes/175/1.jpg" >
+            <input type="range" oninput="tempsaudio()" value="0" id="tempsmusique">
+            
+        </section>
+
+        <section id="search">
+            <button type="button" id="recherche"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" placeholder="rechercher" oninput="recherche()">
+
+        </section>
+    </header>
+    <main>
+        <aside class="filtre">
+
+            <a href="#">Music</a>
+            <a href="#">Vidéos</a>
+            <a href="#">Podcast</a>
+
+
+        </aside>
+        <section id="listcard">
+
+            <article class="musique" onclick="lecture(0)" >
+                <img src="img/pochettes/175/1.jpg" >
+                <h2>Hold On Minute</h2>
+                <h3>Ray Flowers</h3>
+
+            </article>
+
+            <article class="musique" onclick="lecture(1)">
+                <img src="img/pochettes/175/2.jpg">
+                <h2>Cartoon Hoedown</h2>
+                <h3>Media Right Productions</h3>
+
+            </article>
+
+            <article class="musique"onclick="lecture(2)">
+                <img src="img/pochettes/175/3.jpg">
+                <h2>Blue Skies</h2>
+                <h3>Louis Armstrong & Ella Fitzgerald</h3>
+
+            </article>
+            <article class="musique"onclick="lecture(3)">
+                <img src="img/pochettes/175/4.jpg">
+                <h2>Earthy</h2>
+                <h3>Jingle Punks</h3>
+
+
+            
+           
+
+        
+         
+        
+        </section>
+
+
+    </main>
+
+
+
+
+
+
+
+
+    <script src="https://kit.fontawesome.com/d46da3a841.js" crossorigin="anonymous"></script>
+    
+</body>
+
+</html>
